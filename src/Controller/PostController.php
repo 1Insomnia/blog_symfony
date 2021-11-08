@@ -18,6 +18,10 @@ class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Post $post
+     * @return Response
+     */
     #[Route('/article-{slug}', name: 'post_read')]
     public function read(Post $post): Response
     {
