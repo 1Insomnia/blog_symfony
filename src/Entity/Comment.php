@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,12 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Comment
 {
     /**
-     * @var ?int $id
+     * @var int $id
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private int $id;
 
     /**
      * @var string $author
@@ -39,7 +40,7 @@ class Comment
 
     /**
      * @var Post
-     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Post", inversedBy="comments")
      */
     private Post $post;
 
@@ -116,7 +117,7 @@ class Comment
      * @param Post $post
      * @return void
      */
-    public function setPost(Post $post)
+    public function setPost(Post $post): void
     {
         $this->post = $post;
     }

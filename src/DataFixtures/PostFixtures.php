@@ -21,7 +21,7 @@ class PostFixtures extends Fixture
             $post->setContent("Contenueaeaeaeaeaeae {$i}");
             $manager->persist($post);
 
-            for ($j = 1; $j < 25; $j ++) {
+            for ($j = 1; $j <= 10; $j ++) {
                 $comment = new Comment();
                 $comment->setAuthor("Author {$j}");
                 $comment->setContent("Comment number {$j}");

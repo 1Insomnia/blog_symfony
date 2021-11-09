@@ -1,53 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} Homepage {% endblock %}
-{% block stylesheets %}
-    <style>
-        .container {
-            margin: 0 auto;
-            max-width: 750px;
-            padding: 0 25px;
-        }
-
-        .title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-        }
-
-        .post {
-            padding: 20px;
-            box-shadow: 0 1px 5px 1px rgba(0, 0, 0, .12);
-            margin: 1rem 0;
-        }
-
-        .flex > p, .flex  > a {
-            display: block;
-        }
-
-        .flex {
-            display: flex;
-            align-items: center;
-        }
-
-        .flex > p {
-            margin-right: 1rem;
-        }
-    </style>
-{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="title">Blog</h1>
-        {% for post in posts %}
-            <div class="post">
-                <h2 class="post__title">{{ post.title }}</h2>
-                <p class="post__content">{{ post.content }}</p>
-                <div class="flex">
-                    <p>{{ post.publishedAt|date("d/m/Y") }}</p>
-                    <a href="{{ path('post_read', { slug: post.slug }) }}">Read More</a>
-                </div>
+    <section class="py-5">
+        <div class="container">
+            <h1 class="mb-4 text-primary text-center">Blog</h1>
+            <div class="">
+                {% for post in posts %}
+                    <div class="card shadow-lg p-4 my-4 mx-auto" style="max-width: 540px;">
+                        <div class="card-header">
+                            <h2 class="card-title">{{ post.title }}</h2>
+                        </div>
+                        <p class="card-body">{{ post.content }}</p>
+                        <div class="card-footer">
+                            <p>{{ post.publishedAt|date("d/m/Y") }}</p>
+                            <a href="{{ path('post_read', { slug: post.slug }) }}">Read More</a>
+                            <p>{{ post.comments|length }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    </section>
 {% endblock %}

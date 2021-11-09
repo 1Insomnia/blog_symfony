@@ -4,20 +4,22 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\PostRepository", repositoryClass=PostRepository::class)
  */
 class Post
 {
     /**
-     * @var ?int $id
+     * @var int $id
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private int $id;
     /**
      * @var string $slug
      * @ORM\Column(type="string", unique=true)
@@ -33,15 +35,25 @@ class Post
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $publishedAt;
-     /**
+    /**
      * @var string $content
-      * @ORM\Column(type="text")
-      */
+     * @ORM\Column(type="text")
+     */
     private string $content;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post")
+     */
+    private $comments;
+
+    /**
+     *
+     */
     public function __construct()
     {
-        $this->publishedAt = new \DateTimeImmutable();
+        $this->publishedAt = new DateTimeImmutable();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -106,5 +118,13 @@ class Post
     public function setContent(string $content): void
     {
         $this->content = $content;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection|array
+    {
+        return $this->comments;
     }
 }
