@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommentController!{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="text-primary mb-4">{{ comments|length }} - Comments</h1>
+        <div class="mt-4">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#ID</th>
+                    <th scope="col">#PostID</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">PostedAt</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for comment in comments %}
+                    <tr>
+                        <td>
+                            {{ comment.id }}
+                        </td>
+                        <td>
+                            {{ comment.post.id }}
+                        </td>
+                        <td>
+                            {{ comment.author }}
+                        </td>
+                        <td>
+                            {{ comment.content }}
+                        </td>
+                        <td>
+                            {{ comment.postedAt|date('d/M/Y') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
